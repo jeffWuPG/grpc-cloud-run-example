@@ -130,6 +130,11 @@ should see:
 Great! We've got a working calculator server. Next, let's put it inside a
 Docker container.
 
+## test by python client
+```bash
+python client.py --plaintext localhost:50051 add 3 5
+```
+
 ## Containerizing the Server
 
 We're going to use the official Dockerhub Python 3.8 image as our base image.
