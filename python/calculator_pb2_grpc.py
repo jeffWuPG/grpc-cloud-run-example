@@ -19,6 +19,11 @@ class CalculatorStub(object):
         request_serializer=calculator__pb2.BinaryOperation.SerializeToString,
         response_deserializer=calculator__pb2.CalculationResult.FromString,
         )
+    self.CalculateComplex = channel.unary_unary(
+        '/Calculator/CalculateComplex',
+        request_serializer=calculator__pb2.ComplexOperation.SerializeToString,
+        response_deserializer=calculator__pb2.ComplexResult.FromString,
+        )
 
 
 class CalculatorServicer(object):
@@ -32,6 +37,13 @@ class CalculatorServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def CalculateComplex(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_CalculatorServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -39,6 +51,11 @@ def add_CalculatorServicer_to_server(servicer, server):
           servicer.Calculate,
           request_deserializer=calculator__pb2.BinaryOperation.FromString,
           response_serializer=calculator__pb2.CalculationResult.SerializeToString,
+      ),
+      'CalculateComplex': grpc.unary_unary_rpc_method_handler(
+          servicer.CalculateComplex,
+          request_deserializer=calculator__pb2.ComplexOperation.FromString,
+          response_serializer=calculator__pb2.ComplexResult.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -134,7 +134,9 @@ Docker container.
 ```bash
 python client.py --plaintext localhost:50051 add 3 5
 ```
-
+```bash
+python client.py --plaintext localhost:50051 add 3 3 5 5
+```
 ## Containerizing the Server
 
 We're going to use the official Dockerhub Python 3.8 image as our base image.

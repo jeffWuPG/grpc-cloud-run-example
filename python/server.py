@@ -23,6 +23,26 @@ class Calculator(calculator_pb2_grpc.CalculatorServicer):
             result = request.first_operand - request.second_operand
         return calculator_pb2.CalculationResult(result=result)
 
+    def CalculateComplex(self,
+                  request: calculator_pb2.ComplexOperation,
+                  context: grpc.ServicerContext) -> None:
+        logging.info("Received complex request: %s", request)
+        if request.operation == calculator_pb2.ADD:
+            rr = request.first_operand.real + request.second_operand.real
+            ri = request.first_operand.imaginary + request.second_operand.imaginary
+        else:
+            rr = request.first_operand.real - request.second_operand.real
+            ri = request.first_operand.imaginary - request.second_operand.imaginary
+        result = calculator_pb2.ComplexNumber(real= rr, imaginary=ri)
+        return calculator_pb2.ComplexResult(result=result)
+        ### alternative
+        # complexResult = calculator_pb2.ComplexResult()
+        # complexResult.result.copy(result)
+        ### another alternative 
+        # complexResult = calculator_pb2.ComplexResult()
+        # complexResult.result.real = result.real
+        # complexResult.result.imaginary = result.imaginary
+
 
 def _serve(port: Text):
     bind_address = f"[::]:{port}"

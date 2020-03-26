@@ -11,10 +11,26 @@ message BinaryOperation {
   Operation operation = 3;
 };
 
+message ComplexNumber {
+  float real = 1;
+  float imaginary = 2;
+}
+
+message ComplexOperation {
+  ComplexNumber first_operand = 1;
+  ComplexNumber second_operand = 2;
+  Operation operation = 3;
+};
+
 message CalculationResult {
   float result = 1;
 };
 
+message ComplexResult {
+  ComplexNumber result = 1;
+};
+
 service Calculator {
   rpc Calculate (BinaryOperation) returns (CalculationResult);
+  rpc CalculateComplex (ComplexOperation) returns (ComplexResult);
 };
